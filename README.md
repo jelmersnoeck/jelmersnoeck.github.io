@@ -54,7 +54,7 @@ Output is written to the `public/` directory.
 
 ## Deploying to GitHub Pages
 
-The site is deployed to GitHub Pages. Push changes to the `master` branch:
+The site uses GitHub Actions to build and deploy automatically. Just push to `master`:
 
 ```bash
 git add .
@@ -62,10 +62,13 @@ git commit -m "Update site"
 git push origin master
 ```
 
-For GitHub Pages deployment, you can either:
+### First-time setup
 
-1. **Use GitHub Actions** (recommended): Create `.github/workflows/hugo.yml` to build and deploy automatically
-2. **Build locally**: Run `hugo`, commit the `public/` folder contents to the repo root
+In your GitHub repository settings:
+
+1. Go to **Settings** > **Pages**
+2. Under **Source**, select **GitHub Actions**
+3. Push any change to trigger the first build
 
 ## Project Structure
 
