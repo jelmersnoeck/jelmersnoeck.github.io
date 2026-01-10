@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git ls-tree:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(hugo:*)"
+    ]
+  }
+}

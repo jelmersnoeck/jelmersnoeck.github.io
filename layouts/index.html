@@ -1,0 +1,10 @@
+{{ define "main" }}
+<section>
+    {{ range .Site.RegularPages.ByDate.Reverse }}
+    <article>
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+    </article>
+    {{ end }}
+</section>
+{{ end }}

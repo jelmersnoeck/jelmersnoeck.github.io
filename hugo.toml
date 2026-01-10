@@ -1,0 +1,15 @@
+baseURL = "https://jlmr.dev/"
+languageCode = "en-us"
+title = "Jelmer Snoeck"
+
+[params]
+  description = "Software Engineer writing about infrastructure, Kubernetes, and Go"
+  author = "Jelmer Snoeck"
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
