@@ -6,6 +6,7 @@
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <link rel="canonical" href="{{ .Permalink }}">
+    {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $.Site.Title }}">{{ end }}
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -18,9 +19,10 @@
         }
         a { color: #0066cc; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        header { margin-bottom: 3rem; }
+        header { margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
         header h1 { font-size: 1.5rem; font-weight: 600; }
         header h1 a { color: inherit; }
+        header nav a { margin-left: 1rem; font-size: 0.95rem; }
         main { min-height: 60vh; }
         footer { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #eee; color: #666; font-size: 0.875rem; }
         article { margin-bottom: 2rem; }
@@ -55,12 +57,16 @@
 <body>
     <header>
         <h1><a href="/">{{ .Site.Title }}</a></h1>
+        <nav>
+            <a href="/about/">About</a>
+            <a href="/index.xml">RSS</a>
+        </nav>
     </header>
     <main>
         {{ block "main" . }}{{ end }}
     </main>
     <footer>
-        <p>{{ .Site.Params.author }}</p>
+        <p>{{ .Site.Params.author }} · <a href="/about/">About</a> · <a href="/index.xml">RSS</a></p>
     </footer>
 </body>
 </html>
