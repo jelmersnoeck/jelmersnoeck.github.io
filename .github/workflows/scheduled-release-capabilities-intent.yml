@@ -1,0 +1,96 @@
+name: Scheduled release - capabilities-dont-know-what-your-agent-wants
+
+# One-shot scheduled release for the "Capabilities Don't Know What Your Agent Wants" post.
+# Squash-merges post/capabilities-dont-know-what-your-agent-wants into master at the
+# configured time, then deletes itself so it cannot fire again.
+#
+# Hugo deploy is triggered by the resulting push to master (see hugo.yml).
+
+on:
+  schedule:
+    # 14:00 UTC = 07:00 America/Vancouver on 2026-06-03 (PDT, UTC-7).
+    # Cron runs every day at 14:00 UTC; the date gate below ensures it
+    # only acts on the intended day.
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    # Manual override for testing or early release.
+    inputs:
+      force:
+        description: 'Bypass the date gate and run immediately'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scheduled-release-capabilities-intent
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Date gate
+        id: gate
+        run: |
+          set -euo pipefail
+          TARGET="2026-06-03"
+          TODAY="$(date -u +%Y-%m-%d)"
+          FORCE="${{ github.event.inputs.force }}"
+          echo "today_utc=$TODAY  target=$TARGET  force=$FORCE"
+          if [[ "$TODAY" != "$TARGET" && "$FORCE" != "true" ]]; then
+            echo "Not the release date yet; skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout master
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configure git identity
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch release branch
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git fetch origin post/capabilities-dont-know-what-your-agent-wants:post/capabilities-dont-know-what-your-agent-wants
+
+      - name: Squash-merge into master
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git merge --squash post/capabilities-dont-know-what-your-agent-wants
+          git commit -m "Add post: Capabilities Don't Know What Your Agent Wants"
+          git log --oneline -3
+
+      - name: Push master
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git push origin master
+
+      - name: Delete release branch (remote + local)
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git push origin --delete post/capabilities-dont-know-what-your-agent-wants || true
+          git branch -D post/capabilities-dont-know-what-your-agent-wants || true
+
+      - name: Self-destruct this workflow
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/scheduled-release-capabilities-intent.yml
+          git commit -m "chore: remove one-shot release workflow for capabilities-dont-know-what-your-agent-wants"
+          git push origin master
