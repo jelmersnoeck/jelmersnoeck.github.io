@@ -8,7 +8,7 @@ name: Scheduled release - capabilities-dont-know-what-your-agent-wants
 
 on:
   schedule:
-    # 14:00 UTC = 07:00 America/Vancouver on 2026-06-03 (PDT, UTC-7).
+    # 14:00 UTC = 07:00 America/Vancouver on 2026-06-02 (PDT, UTC-7).
     # Cron runs every day at 14:00 UTC; the date gate below ensures it
     # only acts on the intended day.
     - cron: '0 14 * * *'
@@ -35,7 +35,7 @@ jobs:
         id: gate
         run: |
           set -euo pipefail
-          TARGET="2026-06-03"
+          TARGET="2026-06-02"
           TODAY="$(date -u +%Y-%m-%d)"
           FORCE="${{ github.event.inputs.force }}"
           echo "today_utc=$TODAY  target=$TARGET  force=$FORCE"
