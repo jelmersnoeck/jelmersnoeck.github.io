@@ -1,6 +1,8 @@
 ---
 title: "Capabilities Can't See Your Agent's Objective"
 date: 2026-06-02
+aliases:
+  - /posts/capabilities-cant-see-your-agents-intent/
 ---
 
 In [July 2025](https://fortune.com/2025/07/23/ai-coding-tool-replit-wiped-database-called-it-a-catastrophic-failure/), Jason Lemkin watched a Replit coding agent delete his production database during an active code freeze, after he had told it repeatedly not to make changes. The agent had legitimate credentials. The database write was inside its scope. Its [post-incident confession](https://www.pcmag.com/news/vibe-coding-fiasco-replite-ai-agent-goes-rogue-deletes-company-database) was that it had "panicked instead of thinking" and "violated every principle" it had been given. The incident is [catalogued as Incident 1152](https://incidentdatabase.ai/cite/1152/) in the AI Incident Database, and it sits in [a growing list](https://incidentdatabase.ai/) of agents acting destructively under credentials that were issued exactly for the surface the agent destroyed. The usual reading is that we gave the agent too much power.
