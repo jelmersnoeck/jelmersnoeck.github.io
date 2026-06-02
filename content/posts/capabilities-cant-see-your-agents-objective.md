@@ -1,5 +1,5 @@
 ---
-title: "Capabilities Can't See Your Agent's Intent"
+title: "Capabilities Can't See Your Agent's Objective"
 date: 2026-06-02
 ---
 
