@@ -1,6 +1,6 @@
 ---
 title: Sandboxes Are Not Security
-date: 2026-05-22
+date: 2026-06-12
 ---
 
 The industry has settled on an answer to the question of how to run AI agents safely: put them in a sandbox. [AWS](https://aws.amazon.com/blogs/machine-learning/introducing-the-amazon-bedrock-agentcore-code-interpreter/), [Daytona](https://www.daytona.io/), [Cloudflare](https://www.cloudflare.com/products/sandboxes/), [LangChain](https://www.langchain.com/blog/langsmith-sandboxes-generally-available), pick one: they all sell it. The category has a shape, a name, a TAM, and a comparison-table format. "Secure code execution for AI agents." "Zero risk to your infrastructure." "Real isolation, not just sandbox features."
