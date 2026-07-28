@@ -1,6 +1,6 @@
 ---
 title: "The Bottleneck Was Never Review"
-date: 2026-07-24
+date: 2026-07-28
 ---
 
 The reviewer bottleneck is real, but also temporary.
